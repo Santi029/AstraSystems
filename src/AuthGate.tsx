@@ -1,3 +1,4 @@
+import { appFetch, staticCallbackRejected, staticMode } from "./app-transport";
 import { BrandLogo } from "./BrandLogo";
 import { useEffect, useState, type ReactNode } from "react";
 import { ArrowRight, LockKeyhole, RefreshCw, ShieldCheck } from "lucide-react";
@@ -24,7 +25,7 @@ type Activation = { tokenHash: string; type: "invite" | "recovery" };
 // Consume a provider email link before rendering, routing or any request. The secret
 // remains only in this module's memory, never in storage, analytics or messages.
 let activation: Activation | null = null;
-let unsupportedLink = false;
+let unsupportedLink = staticCallbackRejected;
 if (typeof window !== "undefined") {
   const url = new URL(window.location.href),
     type = url.searchParams.get("type"),
@@ -87,7 +88,7 @@ export function AuthGate({
     );
   const [error, setError] = useState(
       unsupportedLink
-        ? "This link format cannot establish a session. Request a new password reset email."
+        ? staticMode ? "This sign-in link is not enabled in this version. No recovery request was sent. Use your existing password." : "This link format cannot establish a session. Request a new password reset email."
         : "",
     ),
     [notice, setNotice] = useState(""),
@@ -102,12 +103,20 @@ export function AuthGate({
     setStatus(null);
     setReload((x) => x + 1);
   };
+  useEffect(() => { const end = (event: Event) => {
+      if (staticMode) {
+        const reason = (event as CustomEvent<string>).detail;
+        setPassword(""); setConfirmPassword("");
+        setNotice(reason === "signed-out" ? "Signed out of this browser session. Pending changes have not been erased." : reason === "signed-out-elsewhere" ? "Signed out because another Astra tab ended the session. Pending changes have not been erased." : "Your session could not be verified. Sign in again, then check any pending task receipt before creating the same task again.");
+      }
+      refresh();
+    }; window.addEventListener("astra-session-ended", end); return () => window.removeEventListener("astra-session-ended", end); }, []);
   useEffect(() => {
     let active = true;
     setStatus(null);
     (async () => {
       for (let attempt = 0; attempt < 2; attempt++) {
-        const res = await fetch("/api/auth/status", { cache: "no-store" });
+        const res = await appFetch("/api/auth/status", { cache: "no-store" });
         const value = await res.json();
         if (!active) return;
         if (res.status === 401 && attempt === 0) continue;
@@ -130,7 +139,7 @@ export function AuthGate({
     };
   }, [reload]);
   const request = async (endpoint: string, body: Record<string, unknown>) => {
-    const res = await fetch("/api/auth/" + endpoint, {
+    const res = await appFetch("/api/auth/" + endpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -348,6 +357,8 @@ export function AuthGate({
                 <label>
                   Email
                   <input
+                    id="astra-login-email"
+                    name="email"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -360,6 +371,8 @@ export function AuthGate({
                   <label>
                     {isActivation ? "New password" : "Password"}
                     <input
+                      id="astra-login-password"
+                      name="password"
                       type="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
@@ -378,6 +391,8 @@ export function AuthGate({
                     <label>
                       Confirm password
                       <input
+                        id="astra-confirm-password"
+                        name="confirmPassword"
                         type="password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
@@ -424,8 +439,9 @@ export function AuthGate({
               </button>
             </div>
             <p className="helper">
-              Astra signs you out when the local service restarts. Your shared
-              projects remain saved.
+              {staticMode
+                ? "This version keeps sign-in only in memory. Reloading requires sign-in again. Saved changes remain; pending task receipts can be checked after signing in with the same account in this browser."
+                : "Astra signs you out when the local service restarts. Your shared projects remain saved."}
             </p>
           </div>
         ) : (

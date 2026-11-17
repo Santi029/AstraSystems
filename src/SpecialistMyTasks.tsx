@@ -21,6 +21,7 @@ type Props = {
   actorId: string;
   personName: PersonName;
   summary?: boolean;
+  mode?: "preview" | "assigned-work";
   onOpenTask: (id: string) => void;
   onAddSelectedTasks?: (titles: readonly string[]) => void;
 };
@@ -242,6 +243,7 @@ export function SpecialistMyTasks({
   actorId,
   personName,
   summary = false,
+  mode = "preview",
   onAddSelectedTasks,
   onOpenTask,
 }: Props) {
@@ -323,7 +325,7 @@ export function SpecialistMyTasks({
     <section className="astra-admin-my-tasks panel" aria-label="My Tasks">
       <header className="my-tasks-heading">
         <h2>My Tasks</h2>
-        <form className="my-tasks-custom-form specialist-top-custom" onSubmit={event=>{
+        {mode === "preview" && <form className="my-tasks-custom-form specialist-top-custom" onSubmit={event=>{
           event.preventDefault();
           const titles=[...new Set(visualRecommendations.customName.split(",").map(n=>n.trim()).filter(Boolean))];
           if(!titles.length)return;
@@ -333,7 +335,7 @@ export function SpecialistMyTasks({
           <label className="my-tasks-visually-hidden" htmlFor={customTaskId}>Custom task name</label>
           <input id={customTaskId} placeholder="Enter a custom task name" value={visualRecommendations.customName} onChange={e=>updateRecommendations({customName:e.target.value})}/>
           <button type="submit" disabled={!visualRecommendations.customName.trim()}><Plus size={16} aria-hidden="true"/> Add</button>
-        </form>
+        </form>}
       </header>
       <div className="my-tasks-filters">
         <label htmlFor={searchId}>
@@ -426,7 +428,7 @@ export function SpecialistMyTasks({
           </nav>
         </footer>
       )}
-      {(onAddSelectedTasks || shouldRecommendSrs(p, actorId)) && (
+      {mode === "preview" && (onAddSelectedTasks || shouldRecommendSrs(p, actorId)) && (
         <aside
           className="my-tasks-recommendation"
           aria-label="Recommended first task"

@@ -1,0 +1,1 @@
+export function createStaticSupabaseTransport(options: {clientFactory:()=>any;fetchImpl?:typeof fetch;config:{url:string;functionName:string;publishableKey:string;sessionGuardEnabled?:boolean};clock?:()=>number;timeoutMs?:number;onInvalidated?:(reason:string)=>void}):{request:(input:string,init?:RequestInit)=>Promise<Response>;invalidate:(reason?:string)=>void;dispose:()=>void};

@@ -1,3 +1,4 @@
+import { roleDisplayLabel } from "./role-display";
 import * as React from "react";
 import "./admin-project-settings.css";
 type Person = { id: string; name?: string };
@@ -129,7 +130,7 @@ export function AdminProjectSettings({ project, people }: Props) {
           <h3>Team assignments</h3>
           {roles.map((role) => (
             <fieldset className="team-role-picker" key={role}>
-              <legend>{role}</legend>
+              <legend>{roleDisplayLabel(role)}</legend>
               <details>
                 <summary>
                   {draft.team

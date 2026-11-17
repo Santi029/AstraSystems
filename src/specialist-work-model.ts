@@ -30,3 +30,19 @@ export function specialistDocumentAction(state: unknown, projectId: string, acto
     return { ok: false as const, message: 'Choose your own saved drafts from one assigned specialist task.' };
   return { ok: true as const, documentIds: [...documentIds] };
 }
+
+/** Navigation only. Never creates tasks/documents or grants editing authority. */
+export function specialistOpenTarget(state: unknown, projectId: string, actorId: string, taskId: string) {
+  const denied = { ok: false as const, message: 'This work is no longer available. Refresh your assigned tasks.' };
+  if (!specialistSelection(state, projectId, actorId, [taskId]).ok || !row(state)) return denied;
+  if (!Array.isArray(state.projects) || state.projects.some((p: unknown) => !row(p))) return denied;
+  const matches = state.projects.filter((p: unknown): p is Row => row(p) && p.id === projectId);
+  if (matches.length !== 1) return denied;
+  const project = matches[0];
+  const selectedIds = row(project.workSelections) && row(project.workSelections[actorId]) ? project.workSelections[actorId].selectedTaskIds : undefined;
+  if (!Array.isArray(selectedIds) || selectedIds.some((id: unknown) => typeof id !== 'string' || !id) || new Set(selectedIds).size !== selectedIds.length || !selectedIds.includes(taskId)) return denied;
+  if (!Array.isArray(project.tasks) || project.tasks.filter((t: unknown) => row(t) && t.id === taskId).length !== 1) return denied;
+  if (!Array.isArray(project.documents)) return {ok:false as const,message:'Document records are unavailable. Refresh your workspace.'};
+  const documents = project.documents.filter((d: unknown): d is Row => row(d) && d.taskId === taskId && d.ownerId === actorId && typeof d.id === 'string' && !!d.id && project.documents.filter((x: unknown) => row(x) && x.id === d.id).length === 1);
+  return {ok:true as const,documents};
+}

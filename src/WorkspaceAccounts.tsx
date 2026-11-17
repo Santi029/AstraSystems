@@ -1,3 +1,4 @@
+import { roleDisplayLabel } from "./role-display";
 import { useEffect, useRef, useState } from "react";
 import { Plus, Send, Pencil, UserMinus, X } from "lucide-react";
 import {
@@ -78,7 +79,7 @@ export function PersonDialog({
           <br />
           {input.email}
         </p>
-        <p>Roles: {input.globalRoles.join(", ")}</p>
+        <p>Roles: {input.globalRoles.map(roleDisplayLabel).join(", ")}</p>
         <p>
           {registered.inviteStatus === "sent"
             ? "Supabase accepted the invitation email. Delivery and identity verification are not yet confirmed."
@@ -215,7 +216,7 @@ export function PersonDialog({
               <br />
               {input.email}
             </p>
-            <p>Workspace roles: {input.globalRoles.join(", ")}</p>
+            <p>Workspace roles: {input.globalRoles.map(roleDisplayLabel).join(", ")}</p>
             {account && <p>Status: {input.status}</p>}
             <p>
               {input.globalRoles.includes("Admin")
@@ -305,13 +306,13 @@ export function PersonDialog({
                         })
                       }
                     />
-                    {role}
+                    {roleDisplayLabel(role)}
                   </label>
                 ))}
               </div>
             </fieldset>
             <p className="helper">
-              Select every role explicitly. PM requires Admin too. Workspace
+              Select every role explicitly. Technical Product Owner requires Admin too. Workspace
               roles do not automatically assign project work.
             </p>
             {account && (
@@ -427,7 +428,7 @@ export function WorkspaceAccounts(props: Props) {
                     {control.self && <span className="helper"> · You</span>}
                   </td>
                   <td>{account.email}</td>
-                  <td>{account.globalRoles.join(", ")}</td>
+                  <td>{account.globalRoles.map(roleDisplayLabel).join(", ")}</td>
                   <td>
                     <span className="status neutral">{account.status}</span>
                     {account.inviteStatus && (

@@ -1,3 +1,4 @@
+import { roleDisplayLabel } from "./role-display";
 import { useRef, useState } from "react";
 import { dashboardTeam } from "./admin-dashboard-model";
 type Person = { id: string; name?: string; email?: string };
@@ -94,11 +95,11 @@ export function AdminTeamPreview({
               <tr key={row.key}>
                 <td>{row.name}</td>
                 <td>{row.email}</td>
-                <td>{row.role}</td>
+                <td>{roleDisplayLabel(row.role)}</td>
                 <td>
                   <button
                     type="button"
-                    aria-label={`Edit ${row.name} · ${row.role}`}
+                    aria-label={`Edit ${row.name} · ${roleDisplayLabel(row.role)}`}
                     onClick={() => open(row)}
                   >
                     Edit
@@ -217,8 +218,8 @@ export function AdminTeamPreview({
               onChange={(e) => setRole(e.target.value)}
             >
               {ROLES.map((r) => (
-                <option key={r} disabled={occupied(r)}>
-                  {r}
+                <option key={r} value={r} disabled={occupied(r)}>
+                  {roleDisplayLabel(r)}
                 </option>
               ))}
             </select>
@@ -226,7 +227,7 @@ export function AdminTeamPreview({
           <p className="muted">
             {editing
               ? "Reassign this project role without changing anyone’s profile."
-              : "One Admin, one Stakeholder and one PM per project. Other specialist roles may repeat."}
+              : "One Admin, one Stakeholder and one Technical Product Owner per project. Other specialist roles may repeat."}
           </p>
           <div className="modal-actions">
             <button type="button" onClick={close}>

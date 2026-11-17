@@ -1,3 +1,4 @@
+import { roleDisplayLabel } from "./role-display";
 import type { ReactNode } from "react";
 type HelperAction = { label: string; onClick: () => void };
 type HelperProps = {
@@ -18,7 +19,7 @@ export function profileRoleLabel(
           typeof role === "string" && role.trim().length > 0,
       )
     : [];
-  return [...new Set(roles)].join(" · ") || "Role not assigned";
+  return [...new Set(roles)].map(roleDisplayLabel).join(" · ") || "Role not assigned";
 }
 /** Provider-unavailable surface. No requests, microphone, storage or mutations. */
 export function ContextualHelper({

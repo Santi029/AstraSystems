@@ -1,9 +1,12 @@
+import { roleDisplayLabel } from "./role-display";
+import { SpecialistMyTasks } from "./SpecialistMyTasks";
+import { appFetch } from "./app-transport";
 import { AdminOwnTasksPanel } from "./AdminOwnTasksPanel";
 import { AdminReviewActions } from "./AdminReviewActions";
 import { prepareReviewDecision } from "./admin-review-action";
 import { createReleasedBackendContract } from "./document-policy-release";
 import { DocumentEditPermission } from "./DocumentEditPermission";
-import { specialistAssignedTasks, specialistSelection, specialistDocumentAction } from "./specialist-work-model";
+import { specialistAssignedTasks, specialistSelection, specialistDocumentAction, specialistOpenTarget } from "./specialist-work-model";
 import { StakeholderQuestionnaire } from "./StakeholderQuestionnaire";
 import { StakeholderOverview } from "./StakeholderOverview";
 import { AdminProjectSettings } from "./AdminProjectSettings";
@@ -293,7 +296,7 @@ function App({
   useEffect(() => {
     const n = ++epoch.current;
     setState(null);
-    fetch("/api/state" + (demo ? "?actorId=" + actor : ""), {
+    appFetch("/api/state" + (demo ? "?actorId=" + actor : ""), {
       cache: "no-store",
     })
       .then(async (r) => {
@@ -431,7 +434,7 @@ function App({
     setBusy(true);
     setError("");
     try {
-      const res = await fetch("/api/action", {
+      const res = await appFetch("/api/action", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -481,7 +484,7 @@ function App({
     if(actionBusy.current) throw Error("Another operation is in progress");
     actionBusy.current=true;setBusy(true);const generation=epoch.current;
     try {
-      const response=await fetch("/api/"+route,{method:body?"POST":"GET",credentials:"same-origin",cache:"no-store",headers:body?{"Content-Type":"application/json","X-Astra-Csrf":access.csrfToken}:{},...(body?{body:JSON.stringify(body)}:{})});
+      const response=await appFetch("/api/"+route,{method:body?"POST":"GET",credentials:"same-origin",cache:"no-store",headers:body?{"Content-Type":"application/json","X-Astra-Csrf":access.csrfToken}:{},...(body?{body:JSON.stringify(body)}:{})});
       const result=await response.json();
       if(generation!==epoch.current) throw Error("Session ended");
       if(response.status===401){setState(null);access.refresh();throw Error("Session ended");}
@@ -492,7 +495,7 @@ function App({
     if (busy || exampleActiveRef.current) return;
     setBusy(true);
     try {
-      const res = await fetch(
+      const res = await appFetch(
         "/api/state" + (demo ? "?actorId=" + actor : ""),
         { cache: "no-store" },
       );
@@ -520,7 +523,7 @@ function App({
       for (const [fingerprint, meta] of Object.entries(
         pendingRequests.current,
       )) {
-        const res = await fetch("/api/receipts/" + meta.requestId, {
+        const res = await appFetch("/api/receipts/" + meta.requestId, {
             cache: "no-store",
           }),
           data = await res.json();
@@ -980,10 +983,10 @@ function App({
                       className="team-role-picker"
                       disabled={!roles.includes(r)}
                     >
-                      <legend>{r}</legend>
+                      <legend>{roleDisplayLabel(r)}</legend>
                       {r === "PM" ? (
                         <select
-                          aria-label="PM"
+                          aria-label="Technical Product Owner"
                           value={assigned[0]?.personId || ""}
                           onChange={(event) =>
                             setNewProject((current) => ({
@@ -1256,7 +1259,7 @@ function App({
                 {(state.accounts || []).map((account) => (
                   <li key={account.id}>
                     <strong>{account.name}</strong> ·{" "}
-                    {(account.globalRoles || []).join(", ")} ·{" "}
+                    {(account.globalRoles || []).map(roleDisplayLabel).join(", ")} ·{" "}
                     {account.status || "Status not recorded"}
                   </li>
                 ))}
@@ -1602,7 +1605,7 @@ function App({
                       <td>
                         <strong>{pname(t.personId)}</strong>
                       </td>
-                      <td>{t.roles.join(", ")}</td>
+                      <td>{t.roles.map(roleDisplayLabel).join(", ")}</td>
                       <td>
                         <Status
                           value={
@@ -1652,7 +1655,7 @@ function App({
                     onChange={(e) => setRole(e.target.value)}
                   >
                     {roles.map((r) => (
-                      <option key={r}>{r}</option>
+                      <option key={r} value={r}>{roleDisplayLabel(r)}</option>
                     ))}
                     {!demo && (
                       <optgroup label="Pending backend support">
@@ -1660,7 +1663,7 @@ function App({
                           .filter((name) => !roles.includes(name))
                           .map((name) => (
                             <option key={name} value={name} disabled>
-                              {name} · Unavailable
+                              {roleDisplayLabel(name)} · Unavailable
                             </option>
                           ))}
                         <option value="Development" disabled>
@@ -2067,45 +2070,36 @@ function App({
                 )}
               </div>
             </div>
-            <div className="stack">
-              {p.tasks
-                .filter(
-                  (t: AnyRecord) =>
-                    t.ownerId === actor &&
-                    (p.workSelections?.[actor]?.selectedTaskIds || []).includes(
-                      t.id,
-                    ),
-                )
-                .map((t: AnyRecord) => (
-                  <article className="task-row" key={t.id}>
-                    <div className="task-check">
-                      <ListTodo size={22} />
-                    </div>
-                    <div className="grow">
-                      <div className="inline">
-                        <h3>{t.title}</h3>
-                        <Status
-                          value={
-                            t.status || (t.completed ? "Completed" : "Active")
-                          }
-                        />
-                      </div>
-                      <p>
-                        {t.discipline || t.role || "Specialist work"} ·{" "}
-                        {pname(t.ownerId || t.assigneeId)}
-                      </p>
-                    </div>
-                    {button("Open task", () => {
-                      const d = p.documents.find(
-                        (d: AnyRecord) => d.taskId === t.id,
-                      );
-                      if (d) navigate(`project/${p.id}/document/${d.id}`);
-                    })}
-                  </article>
-                ))}
-            </div>
+            <SpecialistMyTasks
+              mode="assigned-work"
+              p={{...p, tasks: p.tasks.filter((t: AnyRecord) => t.ownerId === actor && (p.workSelections?.[actor]?.selectedTaskIds || []).includes(t.id))}}
+              actorId={actor} personName={pname}
+              onOpenTask={(taskId) => {
+                const checked = specialistOpenTarget(stateRef.current, p.id, actor, taskId);
+                if (!checked.ok) { setError(checked.message); return; }
+                if (!checked.documents.length) { setError("No document assigned to this task."); return; }
+                navigate(checked.documents.length === 1 ? `project/${p.id}/document/${checked.documents[0].id}` : `project/${p.id}/task/${taskId}`);
+              }}
+            />
           </>
         );
+      else if (section === "task") {
+        const taskId = parts[3] || "";
+        const checked = specialistOpenTarget(state, p.id, actor, taskId);
+        body = !checked.ok ? <Empty title="Task unavailable">{checked.message}</Empty> : (
+          <section className="panel padded">
+            <h2>Choose a task document</h2>
+            <p>Opening a document does not change its editing permissions.</p>
+            {!checked.documents.length && <p>No document assigned to this task.</p>}
+            {checked.documents.map((d: AnyRecord) => <button key={d.id} onClick={() => {
+              const latest = specialistOpenTarget(stateRef.current, p.id, actor, taskId);
+              if (!latest.ok || !latest.documents.some((item: AnyRecord) => item.id === d.id)) { setError("Document access changed. Refresh your assigned tasks."); return; }
+              navigate(`project/${p.id}/document/${d.id}`);
+            }}>{d.title || "Untitled document"}</button>)}
+            <button onClick={() => viewProject(p, "tasks")}>Back to My Tasks</button>
+          </section>
+        );
+      }
       else if (section === "document" && currentDoc) {
         const d = currentDoc;
         const v =
@@ -2806,7 +2800,7 @@ function App({
               <aside className="panel padded">
                 <h2>Close PRD v{p.prd?.version || 1}</h2>
                 <p>
-                  Admin / PM confirms the PRD and its source versions. Closure
+                  Admin / Technical Product Owner confirms the PRD and its source versions. Closure
                   does not authorize task creation or deployment.
                 </p>
                 {!p.prd?.readiness?.ready && (

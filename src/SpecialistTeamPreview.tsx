@@ -1,3 +1,4 @@
+import { roleDisplayLabel } from "./role-display";
 import { useRef, useState } from "react";
 import { dashboardTeam } from "./admin-dashboard-model";
 type Person = { id: string; name?: string; email?: string };
@@ -92,7 +93,7 @@ export function SpecialistTeamPreview({
               <tr key={row.key}>
                 <td>{row.name}</td>
                 <td>{row.email}</td>
-                <td>{row.role}</td>
+                <td>{roleDisplayLabel(row.role)}</td>
 
               </tr>
             ))}
@@ -207,8 +208,8 @@ export function SpecialistTeamPreview({
               onChange={(e) => setRole(e.target.value)}
             >
               {ROLES.map((r) => (
-                <option key={r} disabled={occupied(r)}>
-                  {r}
+                <option key={r} value={r} disabled={occupied(r)}>
+                  {roleDisplayLabel(r)}
                 </option>
               ))}
             </select>
@@ -216,7 +217,7 @@ export function SpecialistTeamPreview({
           <p className="muted">
             {editing
               ? "Reassign this project role without changing anyone’s profile."
-              : "One Admin, one Stakeholder and one PM per project. Other specialist roles may repeat."}
+              : "One Admin, one Stakeholder and one Technical Product Owner per project. Other specialist roles may repeat."}
           </p>
           <div className="modal-actions">
             <button type="button" onClick={close}>
