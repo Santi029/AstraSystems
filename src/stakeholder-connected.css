@@ -1,0 +1,3 @@
+/* Avoid horizontal content painting underneath the fixed sidebar during shell
+   margin/width transitions. Other role shells and sidebar behavior are untouched. */
+.stakeholder-connected-shell .main-shell { transition: none; }

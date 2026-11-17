@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.env*
+.astra-data/
+*.log
+.DS_Store
+activation-backup/
+*results/
+
+*.orig
+*.rej

@@ -1,0 +1,28 @@
+/* Scoped content styles only; Demo presence is indicated by the parent's toggle. */
+.admin-example-preview {
+  min-width: 0;
+}
+.admin-example-preview .example-prd-content,
+.admin-example-preview .example-snapshot p {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.admin-example-preview .example-prd-content {
+  padding-top: 20px;
+  border-top: 1px solid var(--astra-border-subtle);
+  margin-top: 20px;
+}
+.admin-example-preview .example-snapshot {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--astra-border-subtle);
+}
+.admin-example-preview .example-snapshot h3 {
+  margin-top: 0;
+}
+.admin-example-preview button:focus-visible {
+  outline: 3px solid var(--astra-focus-ring);
+  outline-offset: 3px;
+}

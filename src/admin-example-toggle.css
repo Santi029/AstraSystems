@@ -1,0 +1,65 @@
+/* Admin-only display switch. Does not change identity, permissions or saved data. */
+.admin-example-toggle {
+  gap: 7px;
+  padding: 6px 9px;
+  min-height: 38px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.admin-example-switch-track {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px;
+  width: 34px;
+  height: 20px;
+  border-radius: 16px;
+  background: var(--astra-text-muted);
+}
+.admin-example-switch-track > span {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--astra-surface-canvas);
+}
+.admin-example-toggle[aria-checked="true"] .admin-example-switch-track {
+  background: var(--astra-action-primary);
+}
+.admin-example-toggle[aria-checked="true"] .admin-example-switch-track > span {
+  margin-left: auto;
+}
+.real-workspace-view[hidden] {
+  display: none !important;
+}
+@media (max-width: 600px) {
+  .topbar-actions:has(.admin-example-toggle) {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .admin-example-toggle {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 600px) {
+  .topbar:has(.admin-example-toggle) {
+    height: auto;
+    min-height: 92px;
+    padding: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .topbar:has(.admin-example-toggle) > .inline {
+    flex: 1 1 100%;
+  }
+  .topbar-actions:has(.admin-example-toggle) {
+    width: 100%;
+    justify-content: flex-end;
+  }
+  .admin-example-toggle {
+    font-size: 12px;
+  }
+}
+.app-shell:has(.admin-example-preview) .brand:disabled {
+  opacity: 1;
+}
