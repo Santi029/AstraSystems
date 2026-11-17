@@ -1,0 +1,424 @@
+/* Local, read-only Admin task view; no global table or form overrides. */
+.astra-admin-my-tasks {
+  min-width: 0;
+  overflow: hidden;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+}
+.astra-admin-my-tasks .my-tasks-heading {
+  padding: 20px 20px 12px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px 16px;
+  align-items: start;
+}
+.astra-admin-my-tasks .my-tasks-heading h2 {
+  font-family: Montserrat, sans-serif;
+  font-size: 20px;
+  margin: 0;
+  white-space: nowrap;
+}
+.astra-admin-my-tasks .my-tasks-add {
+  display: contents;
+}
+.astra-admin-my-tasks .my-tasks-add p {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: 14px;
+  color: var(--astra-text-secondary);
+  line-height: 1.5;
+}
+.astra-admin-my-tasks .my-tasks-filters {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(120px, 40%);
+  gap: 12px;
+  padding: 0 20px 12px;
+}
+.astra-admin-my-tasks label {
+  display: block;
+  min-width: 0;
+  margin: 0;
+}
+.astra-admin-my-tasks :is(input, select, button),
+.astra-my-task-dialog button {
+  font: inherit;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  min-height: 44px;
+}
+.astra-admin-my-tasks .my-tasks-filters :is(input, select) {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+}
+.astra-admin-my-tasks .my-tasks-table-scroll {
+  overflow-x: auto;
+  max-width: 100%;
+  padding: 0 20px;
+}
+.astra-admin-my-tasks .my-tasks-table {
+  width: 100%;
+  min-width: 360px;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+.astra-admin-my-tasks .my-tasks-status-column {
+  width: 112px;
+}
+.astra-admin-my-tasks .my-tasks-action-column {
+  width: 104px;
+}
+.astra-admin-my-tasks .my-tasks-table :is(th, td) {
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  padding: 14px 8px;
+  border: 0;
+  line-height: 1.5;
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+  text-transform: none;
+  letter-spacing: normal;
+  background: transparent;
+}
+.astra-admin-my-tasks .my-tasks-table thead th {
+  color: var(--astra-text-secondary);
+  font-weight: 400;
+}
+.astra-admin-my-tasks .my-tasks-table tbody th {
+  font-weight: 400;
+}
+.astra-admin-my-tasks .my-tasks-table :is(th, td):first-child {
+  padding-right: 20px;
+}
+.astra-admin-my-tasks .my-tasks-status {
+  display: inline-block;
+  border-radius: 8px;
+  padding: 5px 9px;
+  font-size: 14px;
+  background: var(--astra-status-neutral-background);
+  color: var(--astra-status-neutral-foreground);
+}
+.astra-admin-my-tasks .my-tasks-status-info {
+  background: var(--astra-status-info-background);
+  color: var(--astra-status-info-foreground);
+}
+.astra-admin-my-tasks .my-tasks-status-success {
+  background: var(--astra-status-success-background);
+  color: var(--astra-status-success-foreground);
+}
+.astra-admin-my-tasks .my-tasks-status-warning {
+  background: var(--astra-status-warning-background);
+  color: var(--astra-status-warning-foreground);
+}
+.astra-admin-my-tasks .my-tasks-status-error {
+  background: var(--astra-status-error-background);
+  color: var(--astra-status-error-foreground);
+}
+.astra-admin-my-tasks .my-tasks-open {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  padding: 8px 10px;
+}
+.astra-admin-my-tasks .my-tasks-missing {
+  display: block;
+  margin-top: 5px;
+  color: var(--astra-text-secondary);
+  font-size: 14px;
+}
+.astra-admin-my-tasks .my-tasks-empty {
+  padding: 12px 20px;
+  margin: 0;
+}
+.astra-admin-my-tasks .my-tasks-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  color: var(--astra-text-secondary);
+  font-size: 14px;
+}
+.astra-admin-my-tasks .my-tasks-pagination p {
+  margin: 0;
+}
+.astra-admin-my-tasks .my-tasks-pagination select {
+  margin: 0;
+}
+.astra-admin-my-tasks .my-tasks-pagination nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+.astra-admin-my-tasks .my-tasks-recommendation {
+  margin: 4px 20px 20px;
+}
+.astra-admin-my-tasks .my-tasks-recommendation-box {
+  padding: 12px 16px;
+  border: 1px solid var(--astra-border-subtle);
+  border-radius: 10px;
+  background: var(--astra-surface-subtle);
+}
+.astra-admin-my-tasks .my-tasks-recommendation h3 {
+  font-family: Montserrat, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 12px;
+  line-height: 1.5;
+}
+.astra-admin-my-tasks .my-tasks-recommendation-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 24px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px;
+}
+.astra-admin-my-tasks .my-tasks-recommendation-list label {
+  display: flex;
+  align-items: start;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  cursor: pointer;
+}
+.astra-admin-my-tasks .my-tasks-recommendation-list input {
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  min-height: 18px;
+  margin: 2px 0 0;
+  accent-color: var(--astra-action-primary);
+  cursor: pointer;
+}
+.astra-admin-my-tasks .my-tasks-recommendation-title {
+  font-weight: 400;
+  color: var(--astra-text-secondary);
+  overflow-wrap: anywhere;
+}
+.astra-admin-my-tasks
+  .my-tasks-recommendation-list
+  input:checked
+  + .my-tasks-recommendation-title {
+  color: var(--astra-text-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.astra-admin-my-tasks
+  .my-tasks-recommendation-list
+  label:hover
+  .my-tasks-recommendation-title {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.astra-admin-my-tasks .my-tasks-recommendation span {
+  font-size: 14px;
+  color: var(--astra-text-secondary);
+}
+.astra-admin-my-tasks .my-tasks-custom-form {
+  display: flex;
+  justify-content: end;
+  gap: 10px;
+  margin: 0 0 20px;
+}
+.astra-admin-my-tasks .my-tasks-custom-form input {
+  width: min(100%, 280px);
+  min-width: 0;
+  margin: 0;
+  font-size: 14px;
+}
+.astra-admin-my-tasks .my-tasks-custom-form button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.astra-admin-my-tasks .my-tasks-custom-error {
+  font-size: 14px;
+  color: var(--astra-text-secondary);
+  margin: 0 0 12px;
+}
+@media (max-width: 600px) {
+  .astra-admin-my-tasks .my-tasks-recommendation-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.astra-admin-my-tasks .my-tasks-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.astra-my-task-dialog {
+  width: min(840px, calc(100vw - 32px));
+  max-width: none;
+  max-height: calc(100dvh - 32px);
+  padding: 0;
+  border: 1px solid var(--astra-border-subtle);
+  border-radius: 16px;
+  background: var(--astra-surface-canvas);
+  color: var(--astra-text-primary);
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  overflow: auto;
+}
+.astra-my-task-dialog::backdrop {
+  background: rgb(15 23 42 / 55%);
+}
+.astra-my-task-dialog .my-task-dialog-heading {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px;
+  border-bottom: 1px solid var(--astra-border-subtle);
+}
+.astra-my-task-dialog .my-task-dialog-heading h2 {
+  font-family: Montserrat, sans-serif;
+  font-size: 20px;
+  margin: 0 0 8px;
+  overflow-wrap: anywhere;
+}
+.astra-my-task-dialog .my-task-dialog-heading p {
+  margin: 0;
+}
+.astra-my-task-dialog .my-task-dialog-body {
+  padding: 24px;
+  line-height: 1.6;
+}
+.astra-my-task-dialog .my-task-dialog-body :is(h3, h4) {
+  font-family: Montserrat, sans-serif;
+  font-size: 16px;
+}
+.astra-my-task-dialog .my-task-dialog-body dl {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.astra-my-task-dialog .my-task-dialog-body dt {
+  color: var(--astra-text-secondary);
+}
+.astra-my-task-dialog .my-task-dialog-body dd {
+  margin: 4px 0 0;
+}
+.astra-my-task-dialog .my-task-description,
+.astra-my-task-dialog pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font: inherit;
+  font-size: 14px;
+}
+.astra-my-task-dialog .my-task-document {
+  border-top: 1px solid var(--astra-border-subtle);
+  padding-top: 12px;
+}
+.astra-my-task-dialog .my-task-document summary {
+  padding: 10px 0;
+  cursor: pointer;
+  font-size: 14px;
+}
+.astra-my-task-dialog .my-task-document p {
+  font-size: 14px;
+}
+.astra-admin-my-tasks
+  :is(button, input, select, .my-tasks-table-scroll):focus-visible,
+.astra-my-task-dialog :is(button, summary, pre):focus-visible {
+  outline: 3px solid var(--astra-focus-ring);
+  outline-offset: 3px;
+}
+@media (max-width: 600px) {
+  .astra-admin-my-tasks .my-tasks-filters {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .astra-my-task-dialog .my-task-dialog-heading,
+  .astra-my-task-dialog .my-task-dialog-body {
+    padding: 18px 16px;
+  }
+}
+
+.astra-admin-my-tasks .my-tasks-selected-arrow {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 5px;
+}
+.astra-admin-my-tasks .my-tasks-recommendation-box {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(220px, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+.astra-admin-my-tasks
+  .my-tasks-recommendation-box
+  .my-tasks-recommendation-list {
+  grid-column: 1;
+  grid-row: 1;
+  margin: 0;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.8fr);
+  gap: 14px 12px;
+}
+.astra-admin-my-tasks .my-tasks-recommendation-box .my-tasks-custom-form {
+  grid-column: 2;
+  grid-row: 1;
+  margin: 0;
+  gap: 8px;
+}
+.astra-admin-my-tasks .my-tasks-recommendation-box > button {
+  grid-column: 1;
+  justify-self: start;
+}
+.astra-admin-my-tasks .my-tasks-recommendation-box > span,
+.astra-admin-my-tasks .my-tasks-custom-error {
+  grid-column: 1 / -1;
+}
+@media (max-width: 1100px) {
+  .astra-admin-my-tasks .my-tasks-recommendation-box {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .astra-admin-my-tasks .my-tasks-recommendation-box .my-tasks-custom-form {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .astra-admin-my-tasks
+    .my-tasks-recommendation-box
+    .my-tasks-recommendation-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 600px) {
+  .astra-admin-my-tasks
+    .my-tasks-recommendation-box
+    .my-tasks-recommendation-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.astra-admin-my-tasks .my-tasks-ai-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.astra-admin-my-tasks .my-tasks-table {
+  min-width: 680px;
+}
+.astra-admin-my-tasks .my-tasks-date-column {
+  width: 112px;
+}
+.astra-admin-my-tasks .my-tasks-table thead th {
+  white-space: nowrap;
+}
+.astra-admin-my-tasks .my-tasks-date time {
+  white-space: nowrap;
+}
+.astra-admin-my-tasks .my-tasks-example-date {
+  display: block;
+  color: var(--astra-text-secondary);
+  font-size: 14px;
+}

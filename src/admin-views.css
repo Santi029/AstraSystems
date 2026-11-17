@@ -1,0 +1,302 @@
+/* New Admin views only. Existing global/table/role styles are not modified. */
+.astra-admin-deliverables,
+.astra-admin-activity {
+  min-width: 0;
+  overflow: hidden;
+}
+:is(.astra-admin-deliverables, .astra-admin-activity) .admin-view-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px 24px 12px;
+}
+:is(.astra-admin-deliverables, .astra-admin-activity) .admin-view-heading h2 {
+  margin: 0 0 8px;
+}
+:is(.astra-admin-deliverables, .astra-admin-activity) .admin-view-heading p,
+:is(.astra-admin-deliverables, .astra-admin-activity) .admin-view-count {
+  color: var(--astra-text-secondary);
+  font-size: 13px;
+  line-height: 1.6;
+}
+:is(.astra-admin-deliverables, .astra-admin-activity) .admin-view-heading p {
+  margin: 0;
+  max-width: 68ch;
+}
+:is(.astra-admin-deliverables, .astra-admin-activity) .admin-view-count {
+  padding: 0 24px;
+  margin: 12px 0 18px;
+}
+.astra-admin-deliverables .admin-status-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 8px 24px 0;
+}
+.astra-admin-deliverables .admin-status-filters button {
+  border-radius: 8px;
+  min-height: 40px;
+  gap: 8px;
+}
+.astra-admin-deliverables .admin-status-filters button[aria-pressed="true"] {
+  border-color: var(--astra-action-primary);
+  color: var(--astra-text-link);
+  background: var(--active-bg);
+}
+:is(.astra-admin-deliverables, .astra-admin-activity) .admin-table-scroll {
+  overflow-x: auto;
+  min-width: 0;
+  max-width: 100%;
+  position: relative;
+}
+:is(.astra-admin-deliverables, .astra-admin-activity) .admin-record-table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+:is(.astra-admin-deliverables, .astra-admin-activity)
+  .admin-record-table
+  :is(th, td) {
+  padding: 16px 20px;
+  border-top: 1px solid var(--astra-border-subtle);
+  vertical-align: top;
+  text-align: left;
+  overflow-wrap: anywhere;
+  min-width: 110px;
+  max-width: 340px;
+}
+:is(.astra-admin-deliverables, .astra-admin-activity)
+  .admin-record-table
+  th[scope="row"] {
+  font-weight: 400;
+}
+:is(.astra-admin-deliverables, .astra-admin-activity)
+  .admin-record-table
+  thead {
+  background: var(--astra-surface-subtle);
+}
+:is(.astra-admin-deliverables, .astra-admin-activity) .admin-cell-note {
+  display: block;
+  margin-top: 5px;
+  color: var(--astra-text-secondary);
+  font-size: 12px;
+}
+:is(.astra-admin-deliverables, .astra-admin-activity) .admin-version-list {
+  margin: 0;
+  padding-left: 18px;
+}
+:is(.astra-admin-deliverables, .astra-admin-activity)
+  .admin-version-list
+  li
+  + li {
+  margin-top: 6px;
+}
+.astra-admin-deliverables .admin-delivery-status {
+  display: inline-block;
+  border-radius: 8px;
+  padding: 5px 9px;
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--astra-status-neutral-background);
+  color: var(--astra-status-neutral-foreground);
+}
+.astra-admin-deliverables
+  :is(.admin-status-submitted, .admin-status-under_review) {
+  background: var(--astra-status-info-background);
+  color: var(--astra-status-info-foreground);
+}
+.astra-admin-deliverables .admin-status-approved {
+  background: var(--astra-status-success-background);
+  color: var(--astra-status-success-foreground);
+}
+.astra-admin-deliverables .admin-status-returned {
+  background: var(--astra-status-warning-background);
+  color: var(--astra-status-warning-foreground);
+}
+.astra-admin-deliverables .admin-record-feedback {
+  white-space: pre-wrap;
+  margin: 10px 0 0;
+  color: var(--astra-text-secondary);
+  font-size: 12px;
+}
+.astra-admin-activity .admin-record-details {
+  margin: 0;
+}
+.astra-admin-activity .admin-record-details > div + div {
+  margin-top: 8px;
+}
+.astra-admin-activity .admin-record-details dt {
+  font-weight: 600;
+  color: var(--astra-text-secondary);
+}
+.astra-admin-activity .admin-record-details dd {
+  margin: 3px 0 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+:is(.astra-admin-deliverables, .astra-admin-activity) .admin-view-empty {
+  padding: 24px;
+  color: var(--astra-text-secondary);
+}
+:is(.astra-admin-deliverables, .astra-admin-activity) .admin-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+:is(.astra-admin-deliverables, .astra-admin-activity)
+  :is(button, .admin-table-scroll):focus-visible {
+  outline: 3px solid var(--astra-focus-ring);
+  outline-offset: 3px;
+}
+@media (max-width: 600px) {
+  :is(.astra-admin-deliverables, .astra-admin-activity) .admin-view-heading {
+    padding: 18px 16px 10px;
+  }
+  .astra-admin-deliverables .admin-status-filters {
+    padding-inline: 16px;
+  }
+  :is(.astra-admin-deliverables, .astra-admin-activity) .admin-view-count {
+    padding-inline: 16px;
+  }
+}
+
+/* Row labels are content, not uppercase column headers. Keep status words intact. */
+:is(.astra-admin-deliverables, .astra-admin-activity)
+  .admin-record-table
+  tbody
+  th[scope="row"] {
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: 13px;
+  background: transparent;
+}
+.astra-admin-deliverables .admin-delivery-status {
+  overflow-wrap: normal;
+  word-break: normal;
+  white-space: normal;
+}
+/* Keep the deliberate open action visible while a narrow table is scrolled. */
+.astra-admin-deliverables .admin-record-table th:last-child,
+.astra-admin-deliverables .admin-record-table td:last-child {
+  position: sticky;
+  right: 0;
+  background: var(--astra-surface-canvas);
+  z-index: 1;
+  min-width: 164px;
+  width: 164px;
+  box-shadow: -1px 0 var(--astra-border-subtle);
+}
+
+.astra-admin-deliverables .admin-record-table td:last-child button {
+  width: max-content;
+  min-width: 116px;
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+/* Activity columns fit the Admin main stage without hiding recorded details. */
+.astra-admin-activity .admin-record-table {
+  table-layout: fixed;
+  width: 100%;
+  min-width: 560px;
+  font-size: 14px;
+}
+.astra-admin-activity .admin-record-table :is(th, td) {
+  min-width: 0;
+  max-width: none;
+  padding: 14px 12px;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.astra-admin-activity .admin-record-table tbody th[scope="row"] {
+  font-size: 14px;
+}
+.astra-admin-activity .admin-record-table tr > :nth-child(1) {
+  width: 17%;
+}
+.astra-admin-activity .admin-record-table tr > :nth-child(2) {
+  width: 15%;
+}
+.astra-admin-activity .admin-record-table tr > :nth-child(3) {
+  width: 22%;
+}
+.astra-admin-activity .admin-record-table tr > :nth-child(4) {
+  width: 18%;
+}
+.astra-admin-activity .admin-record-table tr > :nth-child(5) {
+  width: 28%;
+}
+.astra-admin-activity .admin-version-list {
+  padding-left: 16px;
+}
+
+.astra-admin-deliverables .admin-record-table thead th:last-child {
+  background: var(--astra-surface-subtle);
+}
+
+.delivery-pending-review {
+  background: var(--astra-status-warning-background);
+  color: var(--astra-status-warning-foreground);
+}
+.delivery-back-status {
+  align-items: center;
+}
+.delivery-back-status .back-link {
+  margin: 0;
+}
+
+.delivery-detail-stack {
+  display: grid;
+  gap: 20px;
+  min-width: 0;
+}
+.delivery-review-outside {
+  padding: 0 24px;
+}
+.admin-review-preview-actions dialog footer {
+  padding: 0 24px 24px;
+}
+
+.delivery-review-outside {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px 16px;
+  align-items: center;
+}
+.delivery-review-outside > .admin-review-preview-actions {
+  display: contents;
+}
+.delivery-review-outside .admin-review-preview-actions > .actions {
+  grid-column: 2;
+  grid-row: 1;
+  justify-content: flex-end;
+}
+.delivery-review-outside > h3 {
+  grid-column: 1;
+  grid-row: 1;
+  margin: 0;
+}
+.delivery-review-outside .admin-review-preview-actions > p,
+.delivery-review-outside > ul {
+  grid-column: 1 / -1;
+}
+@media (max-width: 600px) {
+  .delivery-review-outside {
+    grid-template-columns: 1fr;
+    padding: 0 12px;
+  }
+  .delivery-review-outside .admin-review-preview-actions > .actions {
+    grid-column: 1;
+    grid-row: 2;
+  }
+}

@@ -1,0 +1,155 @@
+.admin-overview-page-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(540px, 38%);
+  gap: 24px;
+  align-items: start;
+  margin-bottom: 24px;
+}
+.admin-overview-page-heading > .page-heading {
+  margin-bottom: 0;
+}
+.admin-overview-project-progress {
+  min-width: 0;
+  color: var(--astra-text-primary);
+}
+.admin-overview-progress-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+.admin-overview-progress-heading h2 {
+  margin: 0;
+  font-size: 18px;
+}
+.admin-overview-progress-heading strong {
+  font-family: Montserrat, sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--overview-progress-color, var(--astra-text-primary));
+}
+.admin-overview-progress-heading strong.is-unrecorded {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--astra-text-secondary);
+}
+.admin-overview-progress-info {
+  --overview-progress-color: var(--astra-status-info-foreground);
+}
+.admin-overview-progress-success {
+  --overview-progress-color: var(--astra-status-success-foreground);
+}
+.admin-overview-progress-warning {
+  --overview-progress-color: var(--astra-status-warning-foreground);
+}
+.admin-overview-progress-error {
+  --overview-progress-color: var(--astra-status-error-foreground);
+}
+.admin-overview-project-dates {
+  display: grid;
+  gap: 4px;
+  margin: 8px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.admin-overview-project-dates > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+}
+.admin-overview-project-dates dt {
+  color: var(--astra-text-secondary);
+}
+.admin-overview-project-dates dt::after {
+  content: ":";
+}
+.admin-overview-project-dates dd {
+  margin: 0;
+}
+.admin-overview-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(540px, 38%);
+  gap: 24px;
+  align-items: start;
+}
+.admin-overview-center,
+.admin-overview-rail {
+  display: grid;
+  gap: 24px;
+  min-width: 0;
+}
+.admin-overview-conversation {
+  min-width: 0;
+  overflow: hidden;
+}
+.admin-overview-conversation .aw-admin-compact {
+  min-height: 440px;
+}
+.admin-overview-conversation .aw-admin-compact .aw-composer textarea {
+  min-height: 180px;
+}
+.admin-overview-rail-content > .admin-toolbox {
+  border: 1px solid var(--astra-border-subtle);
+  border-radius: 12px;
+  background: var(--astra-surface-canvas);
+}
+.admin-overview-rail .reference-table-scroll {
+  scrollbar-width: thin;
+}
+.admin-language {
+  margin: 0;
+}
+.admin-language select {
+  width: auto;
+  min-height: 38px;
+  font-size: 12px;
+  margin: 0;
+}
+.admin-workspace-logs {
+  display: grid;
+  gap: 24px;
+}
+@media (max-width: 1150px) {
+  .admin-overview-layout,
+  .admin-overview-page-heading {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .admin-overview-rail {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 720px) {
+  .admin-overview-rail {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.admin-header-avatar {
+  width: 28px;
+  height: 28px;
+  font-size: 11px;
+}
+
+/* Shared Admin rail: one third of the available main stage. */
+@media (min-width: 1151px) {
+  .admin-overview-layout,
+  .admin-overview-page-heading {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  }
+}
+.admin-overview-rail-content > .admin-toolbox .admin-toolbox-grid button {
+  min-height: 96px;
+  font-size: 14px;
+}
+.admin-overview-rail .astra-admin-references {
+  container-type: inline-size;
+}
+@container (max-width: 440px) {
+  .astra-admin-references .reference-filters {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+}

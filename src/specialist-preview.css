@@ -1,0 +1,12 @@
+.specialist-recommendations{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:16px 0}.specialist-recommendations button{display:flex;gap:10px;text-align:left;color:var(--astra-text-muted)}.specialist-recommendations button.selected{color:var(--astra-text-primary);text-decoration:underline}.specialist-recommendations button:hover{text-decoration:underline}.specialist-editor{display:grid;gap:12px;margin-top:20px}.specialist-editor textarea{width:100%}.specialist-empty{padding:24px 0}.stakeholder-preview-shell .table-wrap{overflow-x:auto}@media(max-width:820px){.stakeholder-preview-shell .topbar{height:auto;min-height:72px;flex-wrap:wrap}.specialist-recommendations{grid-template-columns:1fr}}
+.specialist-custom-task{display:flex;gap:12px;margin:18px 0}.specialist-custom-task input{flex:1;min-width:0}.specialist-custom-task button{flex:none}.specialist-recommendations button{justify-content:flex-start;border:0;background:transparent;box-shadow:none;font-weight:400}.specialist-recommendations{padding:16px;border:1px solid var(--astra-border-subtle);border-radius:8px}
+
+.astra-admin-my-tasks .specialist-top-custom{display:flex;gap:8px;max-width:460px;flex:1;margin-left:auto}.astra-admin-my-tasks .specialist-top-custom input{min-width:0;flex:1}.astra-admin-my-tasks .specialist-top-custom button{flex:none}.astra-admin-my-tasks .my-tasks-heading{flex-wrap:wrap;gap:16px}
+
+.specialist-comment-history{padding:18px!important}.specialist-comment-history .specialist-editor{margin-top:12px;gap:8px}.specialist-comment-history p{margin:8px 0}.specialist-document-preview{min-height:200px;margin-top:20px;padding:24px;border:1px solid var(--astra-border-subtle);border-radius:8px}
+
+.delivery-pending-review{background:var(--astra-status-warning-background);color:var(--astra-status-warning-foreground)}.delivery-back-status{align-items:center}.delivery-back-status .back-link{margin:0}
+
+.specialist-activity-search{padding:0 24px 16px}.specialist-prd-document section{margin-top:28px}.specialist-prd-document p{line-height:1.75}
+
+.specialist-no-attention{color:var(--astra-text-muted);background:var(--astra-surface-canvas)}

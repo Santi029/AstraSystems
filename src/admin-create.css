@@ -1,0 +1,66 @@
+.admin-create-layout {
+  align-items: start;
+}
+.admin-create-form,
+.admin-create-rail,
+.admin-create-assistant {
+  min-width: 0;
+  margin: 0;
+}
+.admin-create-rail {
+  display: grid;
+  align-content: start;
+  gap: 20px;
+}
+.admin-create-team .inline.spread {
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.admin-create-team > .muted {
+  margin: 12px 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.admin-create-team .team-role-picker {
+  margin: 8px 0 0;
+  padding: 0 10px 4px;
+}
+.admin-create-team .team-role-picker legend {
+  font-size: 13px;
+}
+.admin-create-team .team-role-picker summary {
+  min-height: 44px;
+  padding: 10px 4px;
+  line-height: 24px;
+}
+.admin-create-team .team-role-options {
+  padding: 6px 4px 10px;
+}
+.admin-create-team .team-role-picker details {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.admin-create-team .team-role-picker {
+  margin: 8px 0 0;
+  padding: 0 10px 4px;
+}
+.admin-create-team .team-role-picker > details {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+.admin-create-team .team-role-picker legend {
+  font-size: 14px;
+}
+.admin-create-team .team-role-picker summary {
+  min-height: 44px;
+  padding: 10px 4px;
+  line-height: 24px;
+}
+.admin-create-team .team-role-options {
+  padding: 6px 4px 10px;
+}
+.astra-project-settings .admin-create-team {
+  gap: 6px;
+}

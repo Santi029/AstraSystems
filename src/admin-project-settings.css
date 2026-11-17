@@ -1,0 +1,55 @@
+.astra-project-settings {
+  min-width: 0;
+}
+.astra-project-settings form {
+  display: grid;
+  gap: 20px;
+}
+.astra-project-settings label {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+.astra-project-settings :is(input, select, textarea) {
+  min-width: 0;
+  width: 100%;
+  font-size: 14px;
+}
+.astra-project-settings .team-role-options label {
+  display: flex;
+}
+.astra-project-settings .team-role-options input {
+  width: auto;
+}
+.astra-project-settings .admin-create-team {
+  display: grid;
+  gap: 12px;
+}
+@media (max-width: 600px) {
+  .astra-project-settings .two-fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.admin-create-team .team-role-picker {
+  margin: 8px 0 0;
+  padding: 0 10px 4px;
+}
+.admin-create-team .team-role-picker > details {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+.admin-create-team .team-role-picker legend {
+  font-size: 14px;
+}
+.admin-create-team .team-role-picker summary {
+  min-height: 44px;
+  padding: 10px 4px;
+  line-height: 24px;
+}
+.admin-create-team .team-role-options {
+  padding: 6px 4px 10px;
+}
+.astra-project-settings .admin-create-team {
+  gap: 6px;
+}
