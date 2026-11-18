@@ -1,1 +1,1 @@
-{"release": "create-project-2026111802", "scope": "authenticated-create-project", "backendVersion": 13}
+{"release": "create-project-activity-tables-20261118", "scope": "authenticated-create-project", "backendVersion": 13, "activity": "table-filters-all-authorized-roles", "tables": 9}
