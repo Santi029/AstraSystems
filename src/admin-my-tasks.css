@@ -29,10 +29,33 @@
   line-height: 1.5;
 }
 .astra-admin-my-tasks .my-tasks-filters {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(120px, 40%);
-  gap: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 10px 6px;
   padding: 0 20px 12px;
+}
+.astra-admin-my-tasks .my-tasks-filters > label:nth-child(1) {
+  flex: 0 1 121px;
+}
+.astra-admin-my-tasks .my-tasks-filters > label:nth-child(2) {
+  flex: 0 1 114px;
+}
+.astra-admin-my-tasks .my-tasks-filters > label:nth-child(4) {
+  flex: 1 1 112px;
+}
+.astra-admin-my-tasks .my-tasks-filters > label:last-child {
+  flex: 0 1 151px;
+}
+.astra-admin-my-tasks .my-tasks-filters > button {
+  padding: 0 7px;
+}
+.astra-admin-my-tasks .my-tasks-filters > :is(label, button) {
+  max-width: 100%;
+}
+.astra-admin-my-tasks .my-tasks-filters :is(input, select, button) {
+  height: 44px;
+  margin: 0;
 }
 .astra-admin-my-tasks label {
   display: block;
@@ -336,8 +359,8 @@
   outline-offset: 3px;
 }
 @media (max-width: 600px) {
-  .astra-admin-my-tasks .my-tasks-filters {
-    grid-template-columns: minmax(0, 1fr);
+  .astra-admin-my-tasks .my-tasks-filters > label:nth-child(4) {
+    flex: 1 1 140px;
   }
   .astra-my-task-dialog .my-task-dialog-heading,
   .astra-my-task-dialog .my-task-dialog-body {
