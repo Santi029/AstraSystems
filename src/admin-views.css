@@ -1,4 +1,42 @@
 /* New Admin views only. Existing global/table/role styles are not modified. */
+/* Match the Overview card header inset without changing the full Deliverables tab. */
+.admin-overview-center > .astra-admin-deliverables > .astra-table-controls {
+  column-gap: 10px;
+  padding-inline: 24px;
+}
+.admin-overview-center > .astra-admin-deliverables > .astra-table-controls > label {
+  flex: 1 1 105px;
+  min-width: min(100%, 105px);
+  margin: 0;
+}
+.admin-overview-center > .astra-admin-deliverables > .astra-table-controls > label:first-child {
+  flex-basis: 150px;
+}
+.admin-overview-center > .astra-admin-deliverables > .astra-table-controls :is(input, select, button) {
+  height: 42px;
+  margin: 0;
+  max-width: 100%;
+}
+.admin-overview-center > .astra-admin-deliverables > .astra-table-controls > button {
+  padding-block: 0;
+}
+.admin-overview-center > .astra-admin-deliverables > .astra-table-controls > [role="status"] {
+  align-self: end;
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+}
+@media (max-width: 600px) {
+  .admin-overview-center > .astra-admin-deliverables > .astra-table-controls {
+    padding-inline: 16px;
+  }
+}
+@media (max-width: 560px) {
+  .admin-overview-center > .astra-admin-deliverables > .astra-table-controls > label:first-child {
+    flex-basis: 100%;
+  }
+}
+
 .astra-admin-deliverables,
 .astra-admin-activity {
   min-width: 0;
